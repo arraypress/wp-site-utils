@@ -62,14 +62,12 @@ class Site {
 	}
 
 	/**
-	 * Get the WordPress version for the current site.
+	 * Get the site's charset.
 	 *
-	 * @return string The WordPress version.
+	 * @return string The site's charset (usually UTF-8).
 	 */
-	public static function get_wp_version(): string {
-		global $wp_version;
-
-		return $wp_version;
+	public static function get_charset(): string {
+		return get_bloginfo( 'charset' );
 	}
 
 	/**
@@ -145,6 +143,15 @@ class Site {
 		return wp_lostpassword_url( $redirect );
 	}
 
+	/**
+	 * Get the privacy policy page URL.
+	 *
+	 * @return string The privacy policy URL, or empty string if not set.
+	 */
+	public static function get_privacy_policy_url(): string {
+		return get_privacy_policy_url();
+	}
+
 	// ========================================
 	// Site Status & Configuration
 	// ========================================
@@ -195,15 +202,6 @@ class Site {
 	}
 
 	/**
-	 * Check if pingbacks are enabled.
-	 *
-	 * @return bool True if pingbacks are enabled, false otherwise.
-	 */
-	public static function are_pingbacks_enabled(): bool {
-		return get_option( 'default_ping_status' ) === 'open';
-	}
-
-	/**
 	 * Get the date format setting.
 	 *
 	 * @return string The site's date format.
@@ -241,15 +239,6 @@ class Site {
 	 */
 	public static function get_posts_per_page(): int {
 		return (int) get_option( 'posts_per_page' );
-	}
-
-	/**
-	 * Get the default post category.
-	 *
-	 * @return int The default category ID.
-	 */
-	public static function get_default_category(): int {
-		return (int) get_option( 'default_category' );
 	}
 
 	/**
